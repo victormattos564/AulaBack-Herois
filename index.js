@@ -85,6 +85,50 @@ app.delete("/heroes/:id", async (req, res) => {
     }
 });
 
+app.get("/heroes/name/:name", async (req, res) => {
+    try {
+        const { name } = req.params;
+        const result = await pool.query("SELECT * FROM heroes WHERE name_heroes = $1", [name]);
+        if (result.rowCount === 0) {
+            res.status(404).send({ mensagem: "Herói não encontrado" });
+        } else {
+            res.json(result.rows);
+        }
+    } catch (error) {
+        console.error("Erro ao obter herói por nome:", error);
+        res.status(500).send("Erro ao obter herói por nome");
+    }
+});
+
+app.get("/heroes/power/:power", async (req, res) => {
+    try {
+        const { power } = req.params;
+        const result = await pool.query("SELECT * FROM heroes WHERE power_heroes = $1", [power]);
+        if (result.rowCount === 0) {
+            res.status(404).send({ mensagem: "Herói não encontrado" });
+        } else {
+            res.json(result.rows);
+        }
+    } catch (error) {
+        console.error("Erro ao obter herói por poder:", error);
+        res.status(500).send("Erro ao obter herói por poder");
+    }
+});
+
+app.get("/heroes/level/:level", async (req, res) => {
+    try {
+        const { level } = req.params;
+        const result = await pool.query("SELECT * FROM heroes WHERE level = $1", [level]);
+        if (result.rowCount === 0) {
+            res.status(404).send({ mensagem: "Herói não encontrado" });
+        } else {
+            res.json(result.rows);
+        }
+    } catch (error) {
+        console.error("Erro ao obter herói por level:", error);
+        res.status(500).send("Erro ao obter herói por level");
+    }
+});
 
 
 app.listen(PORT, () => {
