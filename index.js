@@ -130,6 +130,21 @@ app.get("/heroes/level/:level", async (req, res) => {
     }
 });
 
+app.get("/heroes/hp/:hp", async (req, res) => {
+    try {
+        const { hp } = req.params;
+        const result = await pool.query("SELECT * FROM heroes WHERE hp_heroes = $1", [hp]);
+        if (result.rowCount === 0) {
+            res.status(404).send({ mensagem: "Herói não encontrado" });
+        } else {
+            res.json(result.rows);
+        }
+    } catch (error) {
+        console.error("Erro ao obter herói por hp:", error);
+        res.status(500).send("Erro ao obter herói por hp");
+    }
+});
+
 
 app.listen(PORT, () => {
     console.log(`Servidor de herois rodando na porta ${PORT} 🦸‍♂️🎇`);
