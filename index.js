@@ -146,6 +146,18 @@ app.get("/heroes/hp/:hp", async (req, res) => {
 });
 
 
+
+app.delete("/battles/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+        await pool.query("DELETE FROM battles WHERE id = $1", [id]);
+        res.status(200).send({ mensagem: "Batalha excluída com sucesso" });
+    } catch (error) {
+        console.error("Erro ao excluir batalha:", error);
+        res.status(500).send("Erro ao excluir batalha");
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`Servidor de herois rodando na porta ${PORT} 🦸‍♂️🎇`);
 });
