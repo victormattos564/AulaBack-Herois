@@ -244,6 +244,7 @@ app.get("/battles/heroes/:name", async (req, res) => {
     }
 });
 
+
 app.listen(PORT, () => {
     console.log(`Servidor de herois rodando na porta ${PORT} 🦸‍♂️🎇`);
 });
