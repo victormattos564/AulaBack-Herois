@@ -223,25 +223,26 @@ app.get("/battles/:id", async (req, res) => {
         res.status(500).send("Erro ao obter batalha por ID");
     }
 });
-app.get("/battles/heroes/:heroName", async (req, res) => {
+
+app.get("/battles/heroes/:name", async (req, res) => {
     try {
-        const { heroName } = req.params;
-        const result = await pool.query(
-            "SELECT * FROM battles WHERE hero1_id IN (SELECT id FROM heroes WHERE name_heroes = $1) OR hero2_id IN (SELECT id FROM heroes WHERE name_heroes = $1)",
-            [heroName]
-        );
+        const { name } = req.params;
+        const result = await pool.query(`
+            SELECT battles.*, heroes.name_heroes as hero_name 
+            FROM battles 
+            INNER JOIN heroes ON battles.hero1_id = heroes.id OR battles.hero2_id = heroes.id 
+            WHERE heroes.name_heroes = $1`, [name]);
+        
         if (result.rowCount === 0) {
-            res.status(404).send({ mensagem: "Batalha não encontrada" });
+            res.status(404).send({ mensagem: "Batalhas para este herói não encontradas" });
         } else {
             res.json(result.rows);
         }
     } catch (error) {
-        console.error("Erro ao obter batalha por herói:", error);
-        res.status(500).send("Erro ao obter batalha por herói");
+        console.error("Erro ao obter batalhas por nome do herói:", error);
+        res.status(500).send("Erro ao obter batalhas por nome do herói");
     }
 });
-
-
 
 app.listen(PORT, () => {
     console.log(`Servidor de herois rodando na porta ${PORT} 🦸‍♂️🎇`);
