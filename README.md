@@ -2,6 +2,8 @@
 
 # Gerenciamento de Heróis
 
+![Heróis](/images/heroi.png)
+
 Este é um aplicativo simples para gerenciamento de heróis, onde você pode cadastrar, atualizar, visualizar e excluir heróis, além de realizar batalhas entre eles. O aplicativo utiliza Node.js com Express para o backend e PostgreSQL como banco de dados.
 
 ## Instalação
