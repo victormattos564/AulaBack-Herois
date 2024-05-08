@@ -208,6 +208,21 @@ app.get('/battles', async (req, res) => {
     }
 });
 
+app.get("/battles/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+        const result = await pool.query("SELECT * FROM battles WHERE id = $1", [id]);
+        if (result.rowCount === 0) {
+            res.status(404).send({ mensagem: "Batalha não encontrada" });
+        } else {
+            res.json(result.rows);
+        }
+    } catch (error) {
+        console.error("Erro ao obter batalha por ID:", error);
+        res.status(500).send("Erro ao obter batalha por ID");
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`Servidor de herois rodando na porta ${PORT} 🦸‍♂️🎇`);
 });
