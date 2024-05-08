@@ -158,6 +158,56 @@ app.delete("/battles/:id", async (req, res) => {
     }
 });
 
+
+
+app.post("/battles", async (req, res) => {
+    const { hero1_id, hero2_id } = req.body;
+    try {
+        const hero1 = await getHeroById(hero1_id);
+        const hero2 = await getHeroById(hero2_id);
+        
+        if (!hero1 || !hero2) {
+            res.status(404).send({ mensagem: "Um ou ambos os heróis não foram encontrados." });
+            return;
+        }
+
+        const winner = Math.random() < 0.5 ? hero1 : hero2;
+        const loser = winner === hero1 ? hero2 : hero1;
+        
+        const battleResult = await pool.query(
+            "INSERT INTO battles (hero1_id, hero2_id, winner_id, perdedor_id) VALUES ($1, $2, $3, $4) RETURNING *",
+            [hero1_id, hero2_id, winner.id, loser.id]
+        );
+
+        res.status(200).send({
+            mensagem: "Batalha realizada com sucesso",
+            vencedor: winner,
+            perdedor: loser,
+            batalha: battleResult.rows[0]
+        });
+    } catch (error) {
+        console.error("Erro ao criar batalha:", error);
+        res.status(500).send("Erro ao criar batalha");
+    }
+});
+async function getHeroById(id) {
+    const result = await pool.query("SELECT * FROM heroes WHERE id = $1", [id]);
+    return result.rows[0];
+}
+
+app.get('/battles', async (req, res) => {
+    try {
+        const result = await pool.query('SELECT * FROM battles');
+        res.json({
+            total: result.rowCount,
+            battles: result.rows,
+        });
+    } catch (err) {
+        console.error('Erro ao obter batalhas:', err);
+        res.status(500).json({ error: 'Ocorreu um erro ao obter as batalhas.' });
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`Servidor de herois rodando na porta ${PORT} 🦸‍♂️🎇`);
 });
