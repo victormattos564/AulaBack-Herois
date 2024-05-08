@@ -1,3 +1,5 @@
+
+
 # Gerenciamento de Heróis
 
 Este é um aplicativo simples para gerenciamento de heróis, onde você pode cadastrar, atualizar, visualizar e excluir heróis, além de realizar batalhas entre eles. O aplicativo utiliza Node.js com Express para o backend e PostgreSQL como banco de dados.
@@ -60,6 +62,7 @@ entre no pack.json entre em scripts e coloque "dev": "node index.js"
 - `GET /battles`: Retorna todas as batalhas realizadas.
 - `GET /battles/:id`: Retorna uma batalha específica pelo ID.
 - `DELETE /battles/:id`: Exclui uma batalha pelo ID.
+- `GET /battles/heroes/:name`: Retorna todas as batalhas em que um herói específico participou.
 
 #### Frase Aleatória
 
@@ -72,5 +75,3 @@ Contribuições são bem-vindas! Sinta-se à vontade para abrir problemas (issue
 ## Licença
 
 Este projeto está licenciado sob a licença MIT. Consulte o arquivo [LICENSE](LICENSE) para obter mais detalhes.
-
-```
