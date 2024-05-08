@@ -10,13 +10,12 @@ CREATE TABLE battles (
 );
   
 
-INSERT INTO battles (winner_id, hero1_id, hero2_id) VALUES (1, 1, 2);
-INSERT INTO battles (winner_id, hero1_id, hero2_id) VALUES (2, 1, 3);
-INSERT INTO battles (winner_id, hero1_id, hero2_id) VALUES (3, 1, 4);
-INSERT INTO battles (winner_id, hero1_id, hero2_id) VALUES (4, 1, 5);
-INSERT INTO battles (winner_id, hero1_id, hero2_id) VALUES (5, 1, 6);
-INSERT INTO battles (winner_id, hero1_id, hero2_id) VALUES (6, 1, 7);
-INSERT INTO battles (winner_id, hero1_id, hero2_id) VALUES (7, 1, 8);
-INSERT INTO battles (winner_id, hero1_id, hero2_id) VALUES (8, 1, 9);
-INSERT INTO battles (winner_id, hero1_id, hero2_id) VALUES (9, 1, 10);
-INSERT INTO battles (winner_id, hero1_id, hero2_id) VALUES (10, 1, 11);
+
+INSERT INTO battles (winner_id, hero1_id, hero2_id, perdedor_id) VALUES (1, 2, 3, 4);
+INSERT INTO battles (winner_id, hero1_id, hero2_id, perdedor_id) VALUES (2, 3, 4, 5);
+INSERT INTO battles (winner_id, hero1_id, hero2_id, perdedor_id) VALUES (3, 4, 5, 6);
+INSERT INTO battles (winner_id, hero1_id, hero2_id, perdedor_id) VALUES (4, 5, 6, 7);
+INSERT INTO battles (winner_id, hero1_id, hero2_id, perdedor_id) VALUES (5, 6, 7, 8);
+INSERT INTO battles (winner_id, hero1_id, hero2_id, perdedor_id) VALUES (6, 7, 8, 9);
+INSERT INTO battles (winner_id, hero1_id, hero2_id, perdedor_id) VALUES (7, 8, 9, 10);
+INSERT INTO battles (winner_id, hero1_id, hero2_id, perdedor_id) VALUES (8, 9, 10, 11);
